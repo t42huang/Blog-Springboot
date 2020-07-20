@@ -11,7 +11,7 @@ public class IndexController {
     @GetMapping("/")
     public String index(){
 
-        return "aboutme";
+        return "blog";
     }
 //
 //    @GetMapping("/{id}/{name}")
