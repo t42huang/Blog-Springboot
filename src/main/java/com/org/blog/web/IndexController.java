@@ -7,11 +7,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class IndexController {
-
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index(){
+        return "index";
+    }
 
+    @GetMapping("/blog")
+    public String blog(){
         return "blog";
+    }
+
+    @GetMapping("/types")
+    public String types(){
+        return "types";
+    }
+
+    @GetMapping("/aboutme")
+    public String aboutme(){
+        return "aboutme";
     }
 //
 //    @GetMapping("/{id}/{name}")
