@@ -1,7 +1,7 @@
 Spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: mysql666
 
@@ -9,9 +9,11 @@ Spring:
     hibernate:
       ddl-auto: none
     show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5Dialect
 
 logging:
   level:
     root: warn
     com.lrm: info
-  file: log/blog-pro.log
+  file:
+    name: log/blog-pro.log

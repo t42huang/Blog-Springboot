@@ -16,6 +16,17 @@
 
     <properties>
         <java.version>1.8</java.version>
+            <!--修改thymeleaf版本-->
+<!--        <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>-->
+<!--        <thymeleaf.layout-dialect.version>2.1.1</thymeleaf.layout-dialect.version>-->
+<!--        <thymeleaf-spring5.version>3.0.09.RELEASE</thymeleaf-spring5.version>-->
+<!--        <thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>-->
+
+        <springboot-thymeleaf.version>3.0.9.RELEASE</springboot-thymeleaf.version>
+        <thymeleaf-layout-dialect.version>2.3.0</thymeleaf-layout-dialect.version>
+
+
+
     </properties>
 
     <dependencies>
