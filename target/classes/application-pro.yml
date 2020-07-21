@@ -9,6 +9,7 @@ Spring:
     hibernate:
       ddl-auto: none
     show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5Dialect
 
 logging:
   level:
