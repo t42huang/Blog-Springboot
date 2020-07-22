@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:fragment="head(title)">
+<head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:replace="${title}">fragment</title>
+    <title>分类新增</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}"/>
-    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
 </head>
 
 
 <body>
 <!--导航-->
-<nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:replace="admin/_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal item header">后台管理</h2>
-            <a href="#" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active' "><i class="small home icon"></i> 博客</a>
-            <a href="#" th:href="@{/admin/type}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active' "><i class="small idea icon"></i> 分类</a>
-            <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active' "><i class="small tags icon"></i> 标签</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="small home icon"></i> 博客</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="small idea icon"></i> 分类</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="small tags icon"></i> 标签</a>
             <div class="right m-item item m-mobile-hide" >
                 <div class="ui dropdown item">
                     <div class="text">
@@ -26,7 +26,7 @@
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a href="#" th:href="@{/admin/logout}" class="item">Log out</a>
+                        <a href="#" class="item">Log out</a>
                     </div>
                 </div>
             </div>
@@ -38,24 +38,58 @@
     </a>
 </nav>
 
-<!--zhongjian-->
-<br>
-<br>
-<br><br><br>
-<br>
-<br>
-<br>
+<div class="ui attached pointing menu">
+    <div class="ui container">
+        <div class="right menu">
+            <a href="#" class="active item">发布</a>
+            <a href="#" class="item">列表</a>
+        </div>
+    </div>
+</div>
+<!--中间内容-->
+<div class="m-container-small m-padded-tb-big">
+    <div class="ui container">
+        <form action="#" method="post" th:action="@/admin/types" class="ui form">
+            <div class="field">
+                <div class="ui left labeled input">
+                    <label class="ui teal basic label">名称</label>
+                    <input type="text" name="indexPicture" placeholder="首图引用地址">
+                </div>
+            </div>
+            <div class="ui error message"></div>
+            <div class="ui right aligned container">
+                <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+                <button class="ui teal button">提交</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <!--底部部分-->
-<footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-massive">
+<footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
     <div class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
             <div class="three wide column">
                 <div class="ui inverted link list">
                     <div class="item">
-                        <img src="../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 100px">
+                        <img src="../../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 100px">
                     </div>
                 </div>
             </div>
@@ -84,29 +118,30 @@
     </div>
 </footer>
 
-
 <th:block th:fragment="script">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
 
-    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
-    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
-    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
-    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
-
 
     <script>
         $('.menu.toggle').click(function () {
             $('.m-item').toggleClass('m-mobile-hide');
-        })
+        });
 
-        $('#payButton').popup({
-            popup:$('.payQR.popup'),
-            on: 'click',
-            position: 'bottom center'
-        })
+        $('.ui.dropdown').dropdown({
+            on : 'hover'
+        });
 
+        $('.ui.form').form({
+            fiels:{
+                identifier: 'title',
+                rules:[{
+                    type:'empty',
+                    prompt: '标题：请输入博客标题'
+                }]
+            }
+        });
 
     </script>
 </th:block>

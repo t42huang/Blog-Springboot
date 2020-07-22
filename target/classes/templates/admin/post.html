@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>博客发布</title>
@@ -161,7 +161,7 @@
     <br>
     <br>
     <!--底部部分-->
-    <footer class="ui inverted vertical segment m-padded-tb-massive">
+    <footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
         <div class="ui center aligned container">
             <div class="ui inverted divided stackable grid">
                 <div class="three wide column">
@@ -196,39 +196,31 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    <script src="../../static/lib/editormd/editormd.min.js"></script>
+    <th:block th:fragment="script">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
 
-    <script>
-        //markdown 插件
-        var contentEditor;
-        $(function() {
-            contentEditor = editormd("md-content", {
-                width   : "100%",
-                height  : 640,
-                syncScrolling : "single",
-                path    : "../static/lib/editormd/lib/"
+        <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+        <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+        <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+        <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+
+
+        <script>
+            $('.menu.toggle').click(function () {
+                $('.m-item').toggleClass('m-mobile-hide');
             });
-        });
-        $('.menu.toggle').click(function () {
-            $('.m-item').toggleClass('m-mobile-hide');
-        });
-        $('.ui.dropdown').dropdown({
-            on: 'hover'
-        });
-        $('.ui.form').form({
-            fields: {
-                title: {
-                    identifier: 'title',
-                    rules: [{
-                        type: 'empty',
-                        prompt: '标题： 请输入博客标题'
-                    }]
-                }
-            }
-        });
 
-    </script>
+            $('#payButton').popup({
+                popup:$('.payQR.popup'),
+                on: 'click',
+                position: 'bottom center'
+            });
+            $('.ui.dropdown').dropdown({
+                on : 'hover'
+            });
+        </script>
+    </th:block>
     </body>
 </html>

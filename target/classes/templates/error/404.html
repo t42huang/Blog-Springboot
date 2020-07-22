@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="_fragments :: head">
+<head th:replace="_fragments ::head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
@@ -11,7 +11,7 @@
 
 <body>
 <!--导航-->
-<nav class="ui inverted attached segment m-padded-tb-mini">
+<nav th:replace="_fragments::menu(0)" class="ui inverted attached segment m-padded-tb-mini">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal item header">博客详情页</h2>

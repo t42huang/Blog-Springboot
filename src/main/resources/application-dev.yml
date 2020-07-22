@@ -15,6 +15,6 @@ Spring:
 logging:
   level:
     root: info
-    com.lrm: info
+    com.lrm: debug
   file:
     name: log/blog-dev.log
