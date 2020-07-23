@@ -1,6 +1,6 @@
 Spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: mysql666
@@ -15,6 +15,6 @@ Spring:
 logging:
   level:
     root: info
-    com.lrm: info
+    com.org.blog: debug
   file:
     name: log/blog-dev.log

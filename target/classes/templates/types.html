@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="_fragments :: head">
+<head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>分类</title>
+    <title>分类-blog</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/me.css">
 </head>
 
 <body>
     <!--导航-->
-    <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <nav th:replace="_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
         <div class="ui m-container">
             <div class="ui inverted secondary stackable menu">
                 <h2 class="ui teal item header">博客详情页</h2>
@@ -312,7 +312,8 @@
             <p class="m-text-thin m-text-spaced m-opacity-tiny"> Copyright @ 2020 - 2021 Designed by Tina Huang</p>
         </div>
     </footer>
-
+    <!--//*/<th:block th:replace="_fragments :: script">/*/-->
+    <!--//*/</th:block>/*/-->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script>

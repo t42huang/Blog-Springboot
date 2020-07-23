@@ -14,6 +14,6 @@ Spring:
 logging:
   level:
     root: warn
-    com.lrm: info
+    com.org.blog: info
   file:
     name: log/blog-pro.log
