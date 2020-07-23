@@ -91,5 +91,12 @@ public class TypeController {
         return "redirect:/admin/types";
     }
 
+    //删除
+    @GetMapping("/types/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes attributes){
+        typeService.deleteType(id);
+        attributes.addFlashAttribute("message","删除成功");
+        return "redirect:/admin/types";
+    }
 
 }
