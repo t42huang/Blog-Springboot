@@ -28,6 +28,7 @@ public class TypeController {
         return "admin/types";
     }
 
+
     @GetMapping("/types/input")
     public String input(Model model) {
         model.addAttribute("type", new Type());

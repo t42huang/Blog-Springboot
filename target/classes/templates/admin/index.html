@@ -3,7 +3,7 @@
 <head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>后台管理</title>
+    <title>后台管理-index首页</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/me.css">
 </head>
@@ -11,13 +11,12 @@
 <nav>
 
 <!--导航-->
-<nav th:replace="admin/_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:replace="admin/_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal item header">后台管理</h2>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small home icon"></i> 博客</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small idea icon"></i> 分类</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small tags icon"></i> 标签</a>
+            <a href="#" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide"><i class="small home icon"></i> 博客</a>
+            <a href="#" th:href="@{/admin/types}" class="m-item item m-mobile-hide"><i class="small idea icon"></i> 分类</a>
+            <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide"><i class="small tags icon"></i> 标签</a>
             <div class="right m-item item m-mobile-hide" >
                 <div class="ui dropdown item">
                     <div class="text">
@@ -85,16 +84,10 @@
     </div>
 </footer>
 
-<th:block th:fragment="script">
+<!--//*/<th:block th:replace="admin/_fragments :: script">/*/-->
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
-
-    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
-    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
-    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
-    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
-
 
     <script>
         $('.menu.toggle').click(function () {
@@ -110,6 +103,6 @@
             on : 'hover'
         });
     </script>
-</th:block>
+<!--//*/</th:block>/*/-->
 </body>
 </html>

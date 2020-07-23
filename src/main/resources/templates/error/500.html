@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="_fragments :: head">
+<head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
+    <title>500</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/typo.css" />
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
@@ -11,28 +11,7 @@
 
 <body>
 <!--导航-->
-<nav class="ui inverted attached segment m-padded-tb-mini">
-    <div class="ui container">
-        <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal item header">博客详情页</h2>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small home icon"></i> 首页</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small idea icon"></i> 分类</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small tags icon"></i> 标签</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small clone icon"></i> 归档</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small info icon"></i> 关于我</a>
-            <div class="right m-item item m-mobile-hide" >
-                <div class="ui icon inverted  input">
-                    <input type="text" placeholder="search ...">
-                    <i class="search icon"></i>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-        <i class="sidebar icon"></i>
-    </a>
-</nav>
 
 <br>
 <div class="m-container-small m-padded-tb-massive">

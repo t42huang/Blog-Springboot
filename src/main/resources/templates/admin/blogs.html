@@ -3,7 +3,7 @@
 <head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>后台管理yoyo</title>
+    <title>后台管理-博客页</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/me.css">
 </head>
@@ -13,7 +13,6 @@
     <nav th:replace="admin/_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
         <div class="ui container">
             <div class="ui inverted secondary stackable menu">
-                <h2 class="ui teal item header">后台管理</h2>
                 <a href="#" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide"><i class="small home icon"></i> 博客</a>
                 <a href="#" th:href="@{/admin/types}" class="m-item item m-mobile-hide"><i class="small idea icon"></i> 分类</a>
                 <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide"><i class="small tags icon"></i> 标签</a>
@@ -47,7 +46,7 @@
 
     <div class="m-container-small m-padded-tb-big">
         <div class="ui container">
-            <form action="#" method="post" class="ui segment form">
+            <form action="#" method="post" class="ui secondary segment form">
                 <div class="inline fields">
                     <div class="field">
                         <input type="text" name="title" placeholder="标题">
@@ -74,7 +73,7 @@
                     </div>
                 </div>
             </form>
-            <table class="ui celled table">
+            <table class="ui celled compact table">
                 <thead>
                     <tr>
                         <th>标题</th>
@@ -150,18 +149,10 @@
             <p class="m-text-thin m-text-spaced m-opacity-tiny"> Copyright @ 2020 - 2021 Designed by Tina Huang</p>
         </div>
     </footer>
-<!--    <th:block th:replace="_fragments :: script">-->
-    <th:block th:fragment="script">
+
+    <!--//*/<th:block th:replace="admin/_fragments :: script">/*/-->
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-        <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
-
-        <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
-        <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
-        <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
-        <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
-
-
         <script>
             $('.menu.toggle').click(function () {
                 $('.m-item').toggleClass('m-mobile-hide');
@@ -176,6 +167,6 @@
                 on : 'hover'
             });
         </script>
-    </th:block>
+    <!--//*/</th:block>/*/-->
     </body>
 </html>
