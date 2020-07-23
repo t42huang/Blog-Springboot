@@ -22,18 +22,28 @@ public class TypeController {
     private TypeService typeService;
 
     @GetMapping("/types")
-    public  String types(@PageableDefault(size =10, sort ={"id"}, direction = Sort.Direction.DESC)
+    public  String types(@PageableDefault(size =3, sort ={"id"}, direction = Sort.Direction.DESC)
                                 Pageable pageable, Model model){
         model.addAttribute("page", typeService.listType(pageable));
         return "admin/types";
     }
 
-
+//   新增标签
     @GetMapping("/types/input")
     public String input(Model model) {
         model.addAttribute("type", new Type());
         return "admin/types-input";
     }
+//    @PostMapping("/types")
+//    public String post(Type type){
+//        Type t = typeService.saveType(type);
+//        if(t == null){
+//           // attributes.addFlashAttribute("message","操作失败");
+//        }else{
+//            //attributes.addFlashAttribute("message","操作成功");
+//        }
+//        return "redirect:/admin/types";
+//    }
 
     @PostMapping("/types")
     public String post(Type type, RedirectAttributes attributes){

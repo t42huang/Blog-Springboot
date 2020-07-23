@@ -33,7 +33,7 @@ public class TypeServiceImpl implements TypeService{
     @Transactional
     @Override
     public Page<Type> listType(Pageable pageable) {
-        return null;
+        return typeRepository.findAll(pageable);
     }
 
     @Transactional
