@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,6 +39,13 @@ public class TypeController {
         return "admin/types-input";
     }
 
+//    编辑type-跳转到修改的界面
+    @GetMapping("/types/{id}/input")
+    public String editInput(@PathVariable Long id, Model model){
+        model.addAttribute("type",typeService.getType(id));
+        return "admin/types-input";
+    }
+
     @PostMapping("/types")
     public String post(@Valid Type type, BindingResult result, RedirectAttributes attributes){
 //        重复校验
@@ -53,10 +61,35 @@ public class TypeController {
         Type t = typeService.saveType(type);
 
         if(t == null){
-            attributes.addFlashAttribute("message","操作失败");
+            attributes.addFlashAttribute("message","新增失败");
         }else{
-            attributes.addFlashAttribute("message","操作成功");
+            attributes.addFlashAttribute("message","新增成功");
         }
         return "redirect:/admin/types";
     }
+
+//  编写修改方法
+    @PostMapping("/types/{id}")
+    public String editPost(@Valid Type type, BindingResult result, @PathVariable Long id, RedirectAttributes attributes){
+//        重复校验. 注意 type 和Binding 一定要在向邻近的校验才有效果
+        Type t2 = typeService.getTypeByName(type.getName());
+        if(t2 != null){
+            result.rejectValue("name", "nameError","不能添加重复分类");
+        }
+
+        //后台校验
+        if (result.hasErrors()){
+            return "admin/types-input";
+        }
+        Type t = typeService.updateType(id, type);
+
+        if(t == null){
+            attributes.addFlashAttribute("message","更新失败");
+        }else{
+            attributes.addFlashAttribute("message","更新成功");
+        }
+        return "redirect:/admin/types";
+    }
+
+
 }
