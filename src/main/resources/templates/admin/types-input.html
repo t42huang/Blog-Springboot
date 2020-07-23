@@ -49,14 +49,22 @@
 <!--中间内容-->
 <div class="m-container-small m-padded-tb-big">
     <div class="ui container">
-        <form action="#" method="post" th:action="@{/admin/types}" class="ui form">
-            <div class="field">
+        <form action="#" method="post" th:action="@{/admin/types}" th:object="${type}" class="ui form">
+            <div class="required field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">名称</label>
-                    <input type="text" name="name" placeholder="分类名称">
+                    <input type="text" name="name" placeholder="分类名称" th:value="*{name}">
                 </div>
             </div>
             <div class="ui error message"></div>
+            <!--后台校验-->
+            <!--/*/
+            <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+                <i class="close icon"></i>
+                <div class="header">校验失败-后台注解方式</div>
+                <p th:errors="*{name}">提交信息不符合规格</p>
+            </div>
+            /*/-->
             <div class="ui right aligned container">
                 <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
                 <button class="ui teal submit button">提交</button>
@@ -130,12 +138,14 @@
             on : 'hover'
         });
 
+        //前端校验
         $('.ui.form').form({
             fiels:{
-                identifier: 'title',
+                //在name后加入999 为了验证后台通过注入的方式 校验，取消后台校验，使用前端 把999拿掉
+                identifier: 'name999',
                 rules:[{
                     type:'empty',
-                    prompt: '标题：请输入博客标题'
+                    prompt: '标题：请输入分类名称'
                 }]
             }
         });
