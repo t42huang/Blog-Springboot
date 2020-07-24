@@ -6,6 +6,8 @@ import com.org.blog.po.Tag;
 import com.org.blog.po.Type;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +31,18 @@ public class TagServiceImpl implements TagService{
 
     @Transactional
     @Override
+    public Tag getTagByName(String name) {
+        return tagRepository.findByName(name);
+    }
+
+    @Transactional
+    @Override
+    public Page<Tag> listTag(Pageable pageable) {
+        return tagRepository.findAll(pageable);
+    }
+
+    @Transactional
+    @Override
     public Tag updateTag(Long id, Tag tag) {
         Tag t = tagRepository.getOne(id);
         if (t == null) {
@@ -42,7 +56,7 @@ public class TagServiceImpl implements TagService{
     @Transactional
     @Override
     public void deleteTag(Long id) {
-
+        tagRepository.deleteById(id);
     }
 
 }

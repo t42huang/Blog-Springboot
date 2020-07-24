@@ -2,7 +2,6 @@ package com.org.blog.web.admin;
 
 import com.org.blog.po.Type;
 import com.org.blog.service.TypeService;
-import org.hibernate.annotations.GeneratorType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

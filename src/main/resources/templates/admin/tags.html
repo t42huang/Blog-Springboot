@@ -13,13 +13,12 @@
 <nav  th:replace="admin/_fragments :: menu(3)"  class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal item header">后台管理</h2>
             <a href="#" class="m-item item m-mobile-hide"><i class="small home icon"></i> 博客</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="small idea icon"></i> 分类</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="small tags icon"></i> 标签</a>
 
             <div class="right m-item item m-mobile-hide" >
-                <div class="ui dropdown item">
+                <div class="ui dropdown item menu">
                     <div class="text">
                         <img class="ui avatar image" src="https://unsplash.it/100/100?images=#1011">Tina Huang
                     </div>
@@ -40,18 +39,18 @@
 <div class="ui attached pointing menu">
     <div class="ui container">
         <div class="right menu">
-            <a href="#" class="item">发布</a>
-            <a href="#" class="active item">列表</a>
+            <a href="#" th:href="@{/admin/tags/input}" class="item">新增</a>
+            <a href="#" th:href="@{/admin/tags}" class="teal active item">列表</a>
         </div>
     </div>
 </div>
 
 <div class="m-container-small m-padded-tb-big">
     <div class="ui container">
-        <div class="ui success message" >
+        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
             <i class="close icon"></i>
             <div class="header">提示：</div>
-            <p >恭喜，添加成功！</p>
+            <p th:text="${message}">恭喜，添加成功！</p>
         </div>
         <table class="ui celled table">
             <thead>
@@ -62,26 +61,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-            <tr>
-                <td >1</td>
-                <td >标签列表</td>
-
-                <a href="#" class="ui mini teal basic button">编辑</a>
-                <a href="#" class="ui mini red basic button">删除</a>
-
+            <tr th:each="tag,iterStat : ${page.content}">
+                <td th:text="${iterStat.count}">1</td>
+                <td th:text="${tag.name}">Java</td>
+                <td>
+                    <a href="#" th:href="@{/admin/tags/{id}/input(id=${tag.id})}" class="ui mini teal basic button">编辑</a>
+                    <a href="#" th:href="@{/admin/tags/{id}/delete(id=${tag.id})}" class="ui mini red basic button">删除</a>
                 </td>
+
             </tr>
             </tbody>
             <tfoot>
             <tr>
                 <th colspan="6">
-                    <div class="ui mini pagination menu"  >
-                        <a  class="item" >上一页</a>
-                        <a class="item" >下一页</a>
+                    <div class="ui mini pagination menu"  th:if="${page.totalPages} > 1">
+                        <a th:href="@{/admin/tags(page=${page.number}-1)}" class="item" th:unless="${page.first}">上一页</a>
+                        <a th:href="@{/admin/tags(page=${page.number}+1)}" class="item" th:unless="${page.last}">下一页</a>
                     </div>
+                    <a href="#" th:href="@{/admin/tags/input}" class="ui mini right floated teal basic button">新增</a>
 
-                    <a href="#" class="ui mini right floated teal basic button">新增</a>
                 </th>
             </tr>
             </tfoot>
@@ -125,12 +123,10 @@
         <p class="m-text-thin m-text-spaced m-opacity-tiny"> Copyright @ 2020 - 2021 Designed by Tina Huang</p>
     </div>
 </footer>
-<!--//*/<th:block th:replace="admin/_fragments :: script">/*/-->
 
+<!--//*/<th:block th:replace="admin/_fragments :: script">/*/-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
-
 <script>
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
