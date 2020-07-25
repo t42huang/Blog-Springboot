@@ -19,7 +19,7 @@ public class Blog {
     private Integer views;
     private boolean appreciation;
     private boolean shareStatement;
-    private boolean commentable;
+    private boolean commentabled;
     private boolean published;
     private boolean recommend;
     @Temporal(TemporalType.TIMESTAMP)
@@ -106,12 +106,12 @@ public class Blog {
         this.shareStatement = shareStatement;
     }
 
-    public boolean isCommentable() {
-        return commentable;
+    public boolean isCommentabled() {
+        return commentabled;
     }
 
-    public void setCommentable(boolean commentable) {
-        this.commentable = commentable;
+    public void setCommentabled(boolean commentabled) {
+        this.commentabled = commentabled;
     }
 
     public boolean isPublished() {
@@ -193,11 +193,15 @@ public class Blog {
                 ", views=" + views +
                 ", appreciation=" + appreciation +
                 ", shareStatement=" + shareStatement +
-                ", commentable=" + commentable +
+                ", commentabled=" + commentabled +
                 ", published=" + published +
                 ", recommend=" + recommend +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", type=" + type +
+                ", tags=" + tags +
+                ", user=" + user +
+                ", comments=" + comments +
                 '}';
     }
 }

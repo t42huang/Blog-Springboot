@@ -1,17 +1,16 @@
 package com.org.blog.service;
 
 import com.org.blog.po.Blog;
+import com.org.blog.vo.BlogQuery;
 import org.springframework.data.domain.Page;
-
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
 
 public interface BlogService {
-//    Blog getBlog(Long id);
-//    Page<Blog> listBlog(Pageable pageable, Blog blog);
-//    Blog saveBlog(Long is);
-//
-//    Blog updateBlog(Long id, Blog blog);
-//    void deleteBlog(Long id, Blog blog);
 
+    Blog getBlog(Long id);
+    Page<Blog> listBlog(Pageable pageable, BlogQuery blog);
+    Blog saveBlog(Blog blog);
+    Blog updateBlog(Long id, Blog blog);
+    void deleteBlog(Long id);
 
 }
