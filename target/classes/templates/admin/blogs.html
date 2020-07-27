@@ -16,7 +16,7 @@
                 <a href="#" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide"><i class="small home icon"></i> 博客</a>
                 <a href="#" th:href="@{/admin/types}" class="m-item item m-mobile-hide"><i class="small idea icon"></i> 分类</a>
                 <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide"><i class="small tags icon"></i> 标签</a>
-                <div class="right m-item item m-mobile-hide" >
+                <div class="right m-item item m-mobile-hide" menu>
                     <div class="ui dropdown item">
                         <div class="text">
                             <img class="ui avatar image" src="https://unsplash.it/100/100?images=#1011">Tina Huang
@@ -39,7 +39,7 @@
         <div class="ui container">
             <div class="right menu">
                 <a href="#" class="item">发布</a>
-                <a href="#" class="active item">列表</a>
+                <a href="#" class="teal active item">列表</a>
             </div>
         </div>
     </div>
@@ -58,7 +58,7 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">分类</div>
                             <div class="menu">
-                                <div th:each="type:${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">错误日志</div>
+                                <div th:each="type: ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">错误日志</div>
                                 <!--/*-->
                                 <div class="item" data-value="2">开发手册</div>
                                 <!--*/-->
@@ -85,6 +85,7 @@
                         <th>标题</th>
                         <th>类型</th>
                         <th>推荐</th>
+                        <th>状态</th>
                         <th>更新时间</th>
                         <th>操作</th>
                     </tr>
@@ -95,6 +96,7 @@
                         <td th:text="${blog.title}" >刻意练习清单</td>
                         <td th:text="${blog.type.name}" >认知升级</td>
                         <td th:text="${blog.recommend} ? 'Yes' : 'No'" >是</td>
+                        <td th:text="${blog.published} ? '发布' : '草稿'" >草稿</td>
                         <td th:text="${blog.updateTime}">2020-07-02 09:45</td>
                         <td>
                             <a href="@{/admin/blogs/{id}/input(id=${blog.id})" class="ui mini teal basic button">编辑</a>
@@ -104,7 +106,7 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <th colspan="6">
+                        <th colspan="7">
                             <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
                                 <a onclick="page(this)" th:attr="data-page=${page.number}-1"  class="item" th:unless="${page.first}">上一页</a>
                                 <a onclick="page(this)" th:attr="data-page=${page.number}+1"  class="item" th:unless="${page.last}">下一页</a>
@@ -114,7 +116,6 @@
                     </tr>
                     </tfoot>
                 </table>
-
                 <!--message 提示-->
                 <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
                     <i class="close icon"></i>
@@ -202,6 +203,7 @@
         }
         //
         $("#search-btn").click(function () {
+            $("[name='page']").val(0);
             loaddata();
         })
 
@@ -211,7 +213,7 @@
                 title: $("[name='title']").val(),
                 typeId:$("[name='typeId']").val(),
                 recommend : $("[name='recommend']").prop('checked'),
-                page: $("[name='page']").val
+                page: $("[name='page']").val()
             });
         }
 
