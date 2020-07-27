@@ -70,9 +70,7 @@
 
             <div class="required field">
                 <div class="" id="md-content" style="z-index: 1 !important;">
-                    <textarea  placeholder="博客内容" name="content"  th:text="*{content}">
-
-                    </textarea>
+                    <textarea  placeholder="博客内容" name="content"  th:text="*{content}"></textarea>
                 </div>
             </div>
 
@@ -114,6 +112,11 @@
                     <input type="text" name="firstPicture" th:value="*{firstPicture}" placeholder="首图引用地址">
                 </div>
             </div>
+
+            <div class="required field">
+                <textarea  placeholder="博客描述..." name="content"  th:text="*{description}" maxlength="200"></textarea>
+            </div>
+
             <div class="inline fields">
                 <div class="field">
                     <div class="ui checkbox">
@@ -270,6 +273,13 @@
                     rules:[{
                         type: 'empty',
                         prompt: '标题: 请输入首图'
+                    }]
+                },
+                description: {
+                    identifier:'description',
+                    rules:[{
+                        type: 'empty',
+                        prompt: '标题: 请输入描述'
                     }]
                 }
             }

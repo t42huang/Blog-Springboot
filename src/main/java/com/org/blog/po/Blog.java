@@ -41,6 +41,7 @@ public class Blog {
     @ManyToOne
     private User user;
 
+    private String description;
 
     public Blog() {
     }
@@ -190,6 +191,14 @@ public class Blog {
         this.tagIds = tagIds;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void init(){
         this.tagIds = tagsToIds(this.getTags());
     }
@@ -230,7 +239,9 @@ public class Blog {
                 ", updateTime=" + updateTime +
                 ", type=" + type +
                 ", tags=" + tags +
+//                ", tagIds='" + tagIds + '\'' +
                 ", user=" + user +
+                ", description='" + description + '\'' +
                 ", comments=" + comments +
                 '}';
     }
