@@ -19,7 +19,6 @@ public class Tag {
     private List<Blog> blogs = new ArrayList<>();
 
 
-
     public Tag() {
     }
 

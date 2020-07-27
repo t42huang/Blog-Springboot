@@ -13,6 +13,8 @@ public class Blog {
     @GeneratedValue
     private Long id;
     private String title;
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
     private String content;
     private String firstPicture;
     private String flag;
@@ -33,8 +35,12 @@ public class Blog {
     @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Tag> tags = new ArrayList<>();
 
+    @Transient
+    private String tagIds;
+
     @ManyToOne
     private User user;
+
 
     public Blog() {
     }
@@ -42,14 +48,12 @@ public class Blog {
     @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
-
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
-
     public String getTitle() {
         return title;
     }
@@ -146,10 +150,6 @@ public class Blog {
         this.updateTime = updateTime;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Type getType() {
         return type;
     }
@@ -180,6 +180,37 @@ public class Blog {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
+    }
+
+    public void init(){
+        this.tagIds = tagsToIds(this.getTags());
+
+    }
+
+    private String tagsToIds(List<Tag> tags){
+        if(!(tags.isEmpty())){
+            StringBuffer ids = new StringBuffer();
+            boolean flag = false;
+            for(Tag tag:tags){
+                if(flag){
+                    ids.append(",");
+                }else{
+                    flag=true;
+                }
+                ids.append(tag.getId());
+            }
+            return ids.toString();
+        }else {
+            return tagIds;
+        }
     }
 
     @Override
