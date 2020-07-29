@@ -1,54 +1,52 @@
 package com.org.blog.web;
 
-import javassist.NotFoundException;
+import com.org.blog.service.BlogService;
+import com.org.blog.service.TagService;
+import com.org.blog.service.TypeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class IndexController {
+    @Autowired
+    private BlogService blogService;
+
+    @Autowired
+    private TypeService typeService;
+    @Autowired
+    private TagService tagService;
+
     @GetMapping("/")
-    public String index(){
+    public String index(@PageableDefault(size = 5, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+                        Model model){
+        model.addAttribute("page", blogService.listBlog(pageable));
+        model.addAttribute("types", typeService.listTypeTop(6));
+        model.addAttribute("tags", tagService.listTagTop(10));
+        model.addAttribute("recommendBlogs", blogService.listRecommendBlogTop(8));
         return "index";
     }
 
-//
-//    @GetMapping("/blog")
-//    public String blog(){
-//        return "blog";
-//    }
-//
-//    @GetMapping("/types")
-//    public String types(){
-//        return "types";
-//    }
-//
-//    @GetMapping("/archives")
-//    public String archives(){
-//        return "archives";
-//    }
-//
-//    @GetMapping("/aboutme")
-//    public String aboutme(){
-//        return "aboutme";
-//    }
-//
-//    @GetMapping("/{id}/{name}")
-//    public String index(@PathVariable Integer id, @PathVariable String name){
-////        int i = 9/0;
-//        System.out.println("------test------");
-//        return "test";
-//    }
-//    @GetMapping("/test")
-//    public String test(){
-//        String blog = null;
-//        if(blog == null){
-//            try {
-//                throw new NotFoundException("Blog is not exist");
-//            } catch (NotFoundException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return "test";
-//    }
+    @PostMapping("/search")
+    public String search(@PageableDefault(size = 5, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+                         @RequestParam String query, Model model){
+        model.addAttribute("page",blogService.listBlog("%" + query + "%", pageable));
+        model.addAttribute("query", query
+        );
+        return "search";
+    }
+
+    @GetMapping("/blog/{id}")
+    public String blog(@PathVariable Long id, Model model){
+        model.addAttribute("blog", blogService.getAndConvert(id));
+        return "blog";
+    }
+
 }

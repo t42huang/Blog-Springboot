@@ -36,58 +36,39 @@
     <div class="m-container-small m-padded-tb-big">
         <div class="ui container">
             <!----header--->
-            <div class="ui top teal attached segment">
+            <div class="ui top attached segment">
                 <div class="ui middle aligned two column grid">
                     <div class="column">
                         <h3 class="ui teal header">归类</h3>
                     </div>
                     <div class="right aligned column">
-                        共<h3 class="ui orange header m-inline-block m-text-thin">10</h3>条记录
+                        共<h3 class="ui orange header m-inline-block m-text-thin" th:text="${blogCount}">10</h3>条记录
                     </div>
                 </div>
             </div>
+
             <!---content--->
-            <h2 class="ui center aligned header">2017</h2>
-            <div class="ui fluid vertical menu">
-                <a href="#" target="_blank" class="item">
+            <th:block th:each="item : ${archiveMap}">
+            <h2 class="ui center  aligned header" th:text="${item.key}">2017</h2>
+            <div class="ui fluid teal vertical menu">
+                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${item.value}">
                     <span>
-                        <i class="mini teal circle icon"></i>关于刻意练习的清淡
-                        <div class="ui teal basic left pointing label m-padded-mini">9月02日</div>
+                        <i class="mini teal circle icon"></i><span th:text="${blog.title}">关于刻意练习的清淡</span>
+                        <div class="ui teal basic left pointing label m-padded-mini" th:text="${#dates.format(blog.updateTime,'MMMdd')}">9月02日</div>
                     </span>
-                    <div class="ui orange basic left pointing label m-padded-mini">原创</div>
+                    <div class="ui orange basic left pointing label m-padded-mini" th:text="${blog.flag}">原创</div>
                 </a>
-                <a href="#" target="_blank" class="item">
-                    <span>
-                        <i class="mini teal circle icon"></i>关于刻意练习的清淡
-                        <div class="ui teal basic left pointing label m-padded-mini">9月02日</div>
-                    </span>
-                    <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-                </a>
-                <a href="#" target="_blank" class="item">
-                    <span>
-                        <i class="mini teal circle icon"></i>关于刻意练习的清淡
-                        <div class="ui teal basic left pointing label m-padded-mini">9月02日</div>
-                    </span>
-                    <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-                </a>
-                <a href="#" target="_blank" class="item">
-                    <span>
-                        <i class="mini teal circle icon"></i>关于刻意练习的清淡
-                        <div class="ui teal basic left pointing label m-padded-mini">9月02日</div>
-                    </span>
-                    <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-                </a>
-                <a href="#" target="_blank" class="item">
-                    <span>
-                        <i class="mini teal circle icon"></i>关于刻意练习的清淡
-                        <div class="ui teal basic left pointing label m-padded-mini">9月02日</div>
-                    </span>
-                    <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-                </a>
-
             </div>
-
+            </th:block>
             <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
             <div class="ui bottom attached segment">
                 <div class="ui middle aligned two column grid">
                     <div class="column">
@@ -106,7 +87,7 @@
     <br>
     <br>
     <!--底部部分-->
-    <footer class="ui inverted vertical segment m-padded-tb-massive">
+    <footer   class="ui inverted vertical segment m-padded-tb-massive">
         <div class="ui center aligned container">
             <div class="ui inverted divided stackable grid">
                 <div class="three wide column">
@@ -141,9 +122,10 @@
         </div>
     </footer>
     <!--//*/<th:block th:replace="_fragments :: script">/*/-->
-    <!--//*/</th:block>/*/-->
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <!--//*/</th:block>/*/-->
     <script>
         $('.menu.toggle').click(function () {
             $('.m-item').toggleClass('m-mobile-hide');

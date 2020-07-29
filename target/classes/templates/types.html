@@ -14,11 +14,11 @@
         <div class="ui m-container">
             <div class="ui inverted secondary stackable menu">
                 <h2 class="ui teal item header">博客详情页</h2>
-                <a href="#" class="m-item item m-mobile-hide"><i class="small home icon"></i> 首页</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="small idea icon"></i> 分类</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="small tags icon"></i> 标签</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="small clone icon"></i> 归档</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="small info icon"></i> 关于我</a>
+                <a href="#" th:href="@{/blog}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active' "><i class="small home icon"></i> 首页</a>
+                <a href="#" th:href="@{/types}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active' "><i class="small idea icon"></i> 分类</a>
+                <a href="#" th:href="@{/tags}"  class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active' "><i class="small tags icon"></i> 标签</a>
+                <a href="#" th:href="@{/archives}"  class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active' "><i class="small clone icon"></i> 归档</a>
+                <a href="#" th:href="@{/aboutme}"  class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active' "><i class="small info icon"></i> 关于我</a>
                 <div class="right m-item item m-mobile-hide" >
                     <div class="ui icon inverted  input">
                         <input type="text" placeholder="search ...">
@@ -42,231 +42,61 @@
                         <h3 class="ui teal header">分类</h3>
                     </div>
                     <div class="right aligned column">
-                        共<h3 class="ui orange header m-inline-block m-text-thin">10</h3>条记录
+                        共<h3 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(types)}">10</h3>条记录
                     </div>
                 </div>
             </div>
             <!---content--->
             <div class="ui attached segment m-padded-tb-large">
-                <div class="ui labeled button m-margin-tb-tiny">
-                    <a href="#" class="ui basic teal button ">javascript</a>
-                    <div class="ui basic teal left pointing label">24</div>
-                </div>
-                <div class="ui labeled button m-margin-tb-tiny">
-                    <a href="#" class="ui basic  button ">Spring</a>
-                    <div class="ui basic  left pointing label">24</div>
-                </div>
-                <div class="ui labeled button m-margin-tb-tiny">
-                    <a href="#" class="ui basic  button ">Java</a>
-                    <div class="ui basic  left pointing label">24</div>
-                </div>
-                <div class="ui labeled button m-margin-tb-tiny">
-                    <a href="#" class="ui basic  button ">mybits</a>
-                    <div class="ui basic  left pointing label">24</div>
-                </div>
-                <div class="ui labeled button m-margin-tb-tiny">
-                    <a href="#" class="ui basic  button ">mysql</a>
-                    <div class="ui basic  left pointing label">24</div>
-                </div>
-                <div class="ui labeled button m-margin-tb-tiny">
-                    <a href="#" class="ui basic  button ">jdbc</a>
-                    <div class="ui basic  left pointing label">24</div>
-                </div>
-                <div class="ui labeled button m-margin-tb-tiny">
-                    <a href="#" class="ui basic  button ">springboot</a>
-                    <div class="ui basic  left pointing label">24</div>
-                </div>
-                <div class="ui labeled button m-margin-tb-tiny">
-                    <a href="#" class="ui basic  button ">javaweb</a>
-                    <div class="ui basic  left pointing label">24</div>
+                <div class="ui labeled button m-margin-tb-tiny" th:each="type : ${types}">
+                    <a href="#" th:href="@{/types/{id}(id=${type.id})}" class="ui basic button" th:classappend="${type.id==activeTypeId} ? 'teal'" th:text="${type.name}">javascript</a>
+                    <div class="ui basic   left pointing label" th:classappend="${type.id==activeTypeId} ? 'teal'" th:text="${#arrays.length(type.blogs)}">24</div>
                 </div>
             </div>
             <div class="ui top attached teal segment">
-                <div class="ui padded  vertical segment m-padded-tb-large m-padded-lr-clear">
-                    <div class="ui mobile reversed stackable grid">
+                <div class="ui padded  vertical segment m-padded-tb-large m-padded-lr-clear" th:each="blog : ${page.content}">
+                    <div class="ui middle aligned mobile reversed stackable grid">
                         <div class="eleven wide column">
-                            <h3 class="ui header">从一到无穷大</h3>
-                            <p class="m-text">有这么一个故事，说的是两个匈牙利贵族决定做一次数数游戏——谁说出的数字大谁赢。 “好，”一个贵族说，“你先说吧！” 另一个绞尽脑汁想了好几分钟，最后说出了他所想到的最大数字：“3”。 现在轮到第一个动脑筋了。苦思冥想了一刻钟以后，他表示弃权说：“你赢啦！” 这两个贵族的智力当然是不很发达的。再说，这很可能只是一个挖苦人的故事而已。</p>
-                            <div class="ui stackable grid">
+                            <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">从一到无穷大</a></h3>
+                            <p class="m-text" th:text="|${blog.description}......|">有这么一个故事，说的是两个匈牙利贵族决定做一次数数游戏——谁说出的数字大谁赢。 “好，”一个贵族说，“你先说吧！” 另一个绞尽脑汁想了好几分钟，最后说出了他所想到的最大数字：“3”。 现在轮到第一个动脑筋了。苦思冥想了一刻钟以后，他表示弃权说：“你赢啦！” 这两个贵族的智力当然是不很发达的。再说，这很可能只是一个挖苦人的故事而已。</p>
+                            <div class="ui grid">
                                 <div class="eleven wide column">
                                     <div class="ui mini horizontal link list">
                                         <div class="item">
-                                            <img src="https://unsplash.it/100/100?images=#1011" alt="" class="ui avatar image">
-                                            <div class="content"><a href="#" class="header">Tina Huang</a> </div>
+                                            <img src="https://unsplash.it/100/100?images=#1011" th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image">
+                                            <div class="content"><a href="#" class="header" th:text="@{${blog.user.nickname}}">Tina Huang</a> </div>
                                         </div>
                                         <div class="item">
-                                            <i class="calender icon"></i>2020-07-18
-                                        </div>
-                                        <div class="item">
-                                            <i class="eye icon"></i> 2342
-                                        </div>
+                                            <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2020-01-01</span>
 
+                                        </div>
+                                        <i class="eye icon"></i><span th:text="${blog.views}">2342</span>
                                     </div>
-                                    <div class="right aligned five wide column">
-                                        <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">升级</a>
-                                    </div>
+
                                 </div>
-
+                                <div class="right aligned five wide column">
+                                    <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${blog.type.name}">升级</a>
+                                </div>
                             </div>
 
-                            <div class="five wide column">
-                                <a href="#" target="_blank">
-                                    <img src="https://unsplash.it/800/450?images=#1011" alt="" class="ui rounded image">
-                                </a>
-                            </div>
+                        </div>
+
+                        <div class="five wide column">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                <img src="https://unsplash.it/800/450?images=#1011" th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image">
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="ui padded  vertical segment m-padded-tb-large m-padded-lr-clear">
-                    <div class="ui mobile reversed stackable grid">
-                        <div class="eleven wide column">
-                            <h3 class="ui header">从一到无穷大</h3>
-                            <p class="m-text">有这么一个故事，说的是两个匈牙利贵族决定做一次数数游戏——谁说出的数字大谁赢。 “好，”一个贵族说，“你先说吧！” 另一个绞尽脑汁想了好几分钟，最后说出了他所想到的最大数字：“3”。 现在轮到第一个动脑筋了。苦思冥想了一刻钟以后，他表示弃权说：“你赢啦！” 这两个贵族的智力当然是不很发达的。再说，这很可能只是一个挖苦人的故事而已。</p>
-                            <div class="ui stackable grid">
-                                <div class="eleven wide column">
-                                    <div class="ui mini horizontal link list">
-                                        <div class="item">
-                                            <img src="https://unsplash.it/100/100?images=#1011" alt="" class="ui avatar image">
-                                            <div class="content"><a href="#" class="header">Tina Huang</a> </div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="calender icon"></i>2020-07-18
-                                        </div>
-                                        <div class="item">
-                                            <i class="eye icon"></i> 2342
-                                        </div>
-
-                                    </div>
-                                    <div class="right aligned five wide column">
-                                        <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">升级</a>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="five wide column">
-                                <a href="#" target="_blank">
-                                    <img src="https://unsplash.it/800/450?images=#1011" alt="" class="ui rounded image">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ui padded  vertical segment m-padded-tb-large m-padded-lr-clear">
-                    <div class="ui mobile reversed stackable grid">
-                        <div class="eleven wide column">
-                            <h3 class="ui header">从一到无穷大</h3>
-                            <p class="m-text">有这么一个故事，说的是两个匈牙利贵族决定做一次数数游戏——谁说出的数字大谁赢。 “好，”一个贵族说，“你先说吧！” 另一个绞尽脑汁想了好几分钟，最后说出了他所想到的最大数字：“3”。 现在轮到第一个动脑筋了。苦思冥想了一刻钟以后，他表示弃权说：“你赢啦！” 这两个贵族的智力当然是不很发达的。再说，这很可能只是一个挖苦人的故事而已。</p>
-                            <div class="ui stackable grid">
-                                <div class="eleven wide column">
-                                    <div class="ui mini horizontal link list">
-                                        <div class="item">
-                                            <img src="https://unsplash.it/100/100?images=#1011" alt="" class="ui avatar image">
-                                            <div class="content"><a href="#" class="header">Tina Huang</a> </div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="calender icon"></i>2020-07-18
-                                        </div>
-                                        <div class="item">
-                                            <i class="eye icon"></i> 2342
-                                        </div>
-
-                                    </div>
-                                    <div class="right aligned five wide column">
-                                        <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">升级</a>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="five wide column">
-                                <a href="#" target="_blank">
-                                    <img src="https://unsplash.it/800/450?images=#1011" alt="" class="ui rounded image">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ui padded  vertical segment m-padded-tb-large m-padded-lr-clear">
-                    <div class="ui mobile reversed stackable grid">
-                        <div class="eleven wide column">
-                            <h3 class="ui header">从一到无穷大</h3>
-                            <p class="m-text">有这么一个故事，说的是两个匈牙利贵族决定做一次数数游戏——谁说出的数字大谁赢。 “好，”一个贵族说，“你先说吧！” 另一个绞尽脑汁想了好几分钟，最后说出了他所想到的最大数字：“3”。 现在轮到第一个动脑筋了。苦思冥想了一刻钟以后，他表示弃权说：“你赢啦！” 这两个贵族的智力当然是不很发达的。再说，这很可能只是一个挖苦人的故事而已。</p>
-                            <div class="ui stackable grid">
-                                <div class="eleven wide column">
-                                    <div class="ui mini horizontal link list">
-                                        <div class="item">
-                                            <img src="https://unsplash.it/100/100?images=#1011" alt="" class="ui avatar image">
-                                            <div class="content"><a href="#" class="header">Tina Huang</a> </div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="calender icon"></i>2020-07-18
-                                        </div>
-                                        <div class="item">
-                                            <i class="eye icon"></i> 2342
-                                        </div>
-
-                                    </div>
-                                    <div class="right aligned five wide column">
-                                        <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">升级</a>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="five wide column">
-                                <a href="#" target="_blank">
-                                    <img src="https://unsplash.it/800/450?images=#1011" alt="" class="ui rounded image">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ui padded  vertical segment m-padded-tb-large m-padded-lr-clear">
-                    <div class="ui mobile reversed stackable grid">
-                        <div class="eleven wide column">
-                            <h3 class="ui header">从一到无穷大</h3>
-                            <p class="m-text">有这么一个故事，说的是两个匈牙利贵族决定做一次数数游戏——谁说出的数字大谁赢。 “好，”一个贵族说，“你先说吧！” 另一个绞尽脑汁想了好几分钟，最后说出了他所想到的最大数字：“3”。 现在轮到第一个动脑筋了。苦思冥想了一刻钟以后，他表示弃权说：“你赢啦！” 这两个贵族的智力当然是不很发达的。再说，这很可能只是一个挖苦人的故事而已。</p>
-                            <div class="ui stackable grid">
-                                <div class="eleven wide column">
-                                    <div class="ui mini horizontal link list">
-                                        <div class="item">
-                                            <img src="https://unsplash.it/100/100?images=#1011" alt="" class="ui avatar image">
-                                            <div class="content"><a href="#" class="header">Tina Huang</a> </div>
-                                        </div>
-                                        <div class="item">
-                                            <i class="calender icon"></i>2020-07-18
-                                        </div>
-                                        <div class="item">
-                                            <i class="eye icon"></i> 2342
-                                        </div>
-
-                                    </div>
-                                    <div class="right aligned five wide column">
-                                        <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">升级</a>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="five wide column">
-                                <a href="#" target="_blank">
-                                    <img src="https://unsplash.it/800/450?images=#1011" alt="" class="ui rounded image">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
+
             <div class="ui bottom attached segment">
-                <div class="ui middle aligned two column grid">
+                <div class="ui middle aligned two column grid"  th:if="${page.totalPages}>1">
                     <div class="column">
-                        <a href="#" class="ui mini teal basic button">Prev Page</a>
+                        <a href="#" th:href="@{/(page=${page.number}-1)}" th:unless="${page.first}" class="ui mini basic teal button">back</a>
                     </div>
                     <div class="right aligned column">
-                        <a href="#" class="ui mini teal basic button">Next Page</a>
+                        <a href="#" th:href="@{/(page=${page.number}+1)}" th:unless="${page.last}" class="ui mini basic teal button">next</a>
                     </div>
                 </div>
             </div>
@@ -278,7 +108,7 @@
     <br>
     <br>
     <!--底部部分-->
-    <footer class="ui inverted vertical segment m-padded-tb-massive">
+    <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
         <div class="ui center aligned container">
             <div class="ui inverted divided stackable grid">
                 <div class="three wide column">
@@ -313,9 +143,10 @@
         </div>
     </footer>
     <!--//*/<th:block th:replace="_fragments :: script">/*/-->
-    <!--//*/</th:block>/*/-->
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <!--//*/</th:block>/*/-->
     <script>
         $('.menu.toggle').click(function () {
             $('.m-item').toggleClass('m-mobile-hide');
