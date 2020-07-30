@@ -123,9 +123,9 @@
                     </div>
 
 
-                    <!----footer---->
-                    <div class="ui bottom attached segment">
-                        <div class="ui middle aligned two column grid"  th:if="${page.totalPages}>1">
+                    <!----分页---->
+                    <div class="ui bottom attached segment m-opacity" th:if="${page.totalPages}>1">
+                        <div class="ui middle aligned two column grid"  >
                             <div class="column">
                                 <a href="#" th:href="@{/(page=${page.number}-1)}" th:unless="${page.first}" class="ui mini basic teal button">back</a>
                             </div>
@@ -134,6 +134,7 @@
                             </div>
                         </div>
                     </div>
+
 
                 </div>
                 <!----右边的top---->
