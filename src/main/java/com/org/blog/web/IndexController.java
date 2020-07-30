@@ -48,5 +48,4 @@ public class IndexController {
         model.addAttribute("blog", blogService.getAndConvert(id));
         return "blog";
     }
-
 }

@@ -21,7 +21,7 @@
             <a href="#" th:href="@{/about}"  class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active' "><i class="small info icon"></i> 关于我</a>
             <div class="right m-item item m-mobile-hide" >
                 <form action="#" th:action="@{/search}" method="post" target="_blank">
-                    <div class="ui icon inverted transparent input m-margin-tb-tiny">
+                    <div class="ui icon   input m-margin-tb-tiny">
                         <input type="text" name="query" placeholder="search ..." th:value="${query}">
                         <i onclick="document.forms['search'].submit()" class="search icon"></i>
                     </div>
@@ -42,7 +42,7 @@
             <div class="three wide column">
                 <div class="ui inverted link list">
                     <div class="item">
-                        <img src="../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 100px">
+                        <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}" class="ui rounded image" alt="" style="width: 100px">
                     </div>
                 </div>
             </div>
